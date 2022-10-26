@@ -16,6 +16,7 @@ function reset() {
         firstDraw = false;
 
         drawGrid();
+        paint();
     });
 }
 
@@ -37,5 +38,17 @@ function drawGrid() {
     }
 }
 
+function paint() {
+    let divs = document.querySelectorAll(".container > div");
+
+    for (const div of divs) {
+        div.addEventListener("mouseenter", () => {
+            div.classList.add("hover");
+            console.log(div.className);
+        });
+    }
+}
+
 drawGrid();
+paint();
 reset();
