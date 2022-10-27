@@ -16,7 +16,9 @@ function reset() {
         firstDraw = false;
 
         drawGrid();
-        paint();
+        //paint();
+        //paintRandomColor();
+        shade();
     });
 }
 
@@ -44,11 +46,55 @@ function paint() {
     for (const div of divs) {
         div.addEventListener("mouseenter", () => {
             div.classList.add("hover");
-            console.log(div.className);
+        });
+    }
+}
+
+function getRandomColorValue() {
+    return Math.floor(Math.random() * 255);
+}
+
+function assignColorValues() {
+    const rgb = [];
+
+    for (let i = 0; i < 3; i++) {
+        rgb.push(getRandomColorValue());
+    }
+
+    return rgb;
+}
+
+function convertToRGB() {
+    return `rgb(${assignColorValues().join(", ")})`;
+}
+
+function paintRandomColor() {
+    let divs = document.querySelectorAll(".container > div");
+
+    for (const div of divs) {
+        div.addEventListener("mouseenter", () => {
+            if (div.style.backgroundColor === "") {
+                div.style.backgroundColor = `${convertToRGB()}`;
+            }
+        });
+    }
+}
+
+function shade() {
+    let divs = document.querySelectorAll(".container > div");
+
+    for (const div of divs) {
+        let lightness = 100;
+        div.addEventListener("mouseenter", () => {
+            lightness -= 10;
+
+            div.style.backgroundColor = `hsl(0, 0%, ${lightness}%)`;
         });
     }
 }
 
 drawGrid();
-paint();
 reset();
+//paint();
+//paintRandomColor();
+shade();
